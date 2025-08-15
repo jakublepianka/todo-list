@@ -1,0 +1,331 @@
+@font-face {
+    font-family: "Dune";
+    src: url('../assets/Dune_Rise.ttf');
+}
+
+@font-face {
+    font-family: "Modern Sans";
+    src: url('../assets/ModernSans-Light.otf');
+}
+
+/* #27187E #758BFD 
+#9EC7FF #F1F2F6 #FFAE00 */
+
+html, body {
+    height: 100%;
+    width: 100%;
+
+}
+
+body {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: auto 1fr;
+
+    gap: 1.25rem;
+    padding: 1.5rem 2rem;
+    background: #F1F2F6;
+    background: linear-gradient( #9EC7FF -700%, #F1F2F6 300%);
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    font-family: "Dune";
+    background: #9EC7FF;
+    background: linear-gradient(240deg, #FFAE00 -300%, #9EC7FF 90%);
+    border-radius: 1rem;
+    padding: 1rem 1rem 0.4rem;
+    box-shadow: 2px 2px 15px -5px #27187E;
+    letter-spacing: 1rem;
+    text-indent: 1rem;
+}
+
+#content {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    font-family: "Modern Sans";
+    border-radius: 1rem;
+    background: #758BFD;
+    background: linear-gradient(90deg, #758BFD -30% , #FFAE00 300%);
+    box-shadow: 2px 2px 15px -5px #27187E; 
+}
+
+@keyframes fadeIn {
+
+    
+}
+
+.content-header > .content-title {
+    text-align: center;
+    letter-spacing: 0.2rem;
+    text-indent: 0.2rem;
+    padding: 0.75rem 0;
+    margin: 0;
+    background-color: #758BFD;
+    /* background: linear-gradient( #FFAE00 -100%, #758BFD 0%); */
+    border-radius: 1rem 1rem 0 0;
+
+}
+
+.content-body {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 2rem 1rem;
+    box-shadow: inset 0 12px 20px -20px  #000000AA;
+    gap: 1cqw;
+    
+}
+
+/* 
+    overall layout ^
+    ============================================================
+    project card v
+*/
+
+
+.project-card {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    background: #F1F2F6;
+    box-shadow: 2px 2px 15px -5px #27187E;
+    width: 90%;
+    min-width: 200px;
+    height: fit-content;
+    border-radius: 1rem;
+    padding: 0 0.5rem;
+    text-align: center;
+    margin: 0.5rem 0;
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    border: none;
+    margin: 0;
+    min-height: 60px;
+}
+
+.project-title {
+    flex: 4 1 0;
+    padding: 1rem 0.2rem;
+    margin: 0;
+}
+
+.project-expand, .project-open {
+    flex: 1 1 0;
+    height: fit-content;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.project-description-container-show {
+
+    padding: 1rem 0;
+    margin: 0;
+}
+
+.project-description-text {
+    margin: 0;
+}
+
+.project-todolist {
+    list-style: none;
+    padding: 0 0 0.5rem;
+    margin: 0;
+}
+
+.project-todo-item {
+    display: grid;
+    padding: 0.5rem 0;
+    margin: 0;
+    list-style: none;
+}
+
+/* 
+    project card ^
+    ============================================================
+    Add button v
+*/
+
+.project-add {
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+    color: #27187E;
+    box-shadow: 2px 2px 15px -5px #27187E;
+    width: 90%;
+    min-width: 200px;
+    min-height: 60px;
+    height: 60px;
+    margin: 0.5rem 0;
+
+
+    border-radius: 1rem;
+    padding: 0 0.5rem;
+    text-align: center;
+    border: none;
+
+    cursor: pointer;
+
+    order: 999;
+
+    animation-name: shrink;
+    animation-duration: 200ms;
+    animation-fill-mode: both;
+}
+
+.project-add:hover {
+    animation-name: grow;
+    animation-duration: 200ms;
+    animation-fill-mode: both;
+}
+
+@keyframes grow {
+    from {
+        transform: scale(1);
+        background: linear-gradient(90deg, #FFAE00 -700%, #9EC7FF 200%);
+    }
+    to {
+        transform: scale(1.05);
+        background: linear-gradient(90deg,#9EC7FF -100%, #FFAE00 500%);
+
+    }
+}
+
+@keyframes shrink {
+    from {
+        transform: scale(1.05);
+        background: linear-gradient(90deg,#9EC7FF -100%, #FFAE00 500%);
+
+    }
+    to {
+        transform: scale(1);
+        background: linear-gradient(90deg, #FFAE00 -700%, #9EC7FF 200%);
+    }
+}
+
+
+.project-add-icon {
+    margin: 0;
+    font-size: 5rem;
+
+    line-height: 100%;
+}
+
+.project-add-icon-info {
+    font-size: 1.7rem;
+}
+
+/* 
+    Add button ^
+    ============================================================
+    new project form v
+*/
+
+
+.form-card {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    background-color: #F1F2F6;
+    /* background: linear-gradient(180deg, #758BFD -100%, #9EC7FF 100%); */
+    box-shadow: 2px 2px 15px -5px #27187E;
+    width: 90%;
+    min-width: 200px;
+    height: fit-content;
+    border-radius: 1rem;
+    padding: 0 0.5rem;
+    text-align: center;
+    margin: 0.5rem 0;
+
+}
+
+.form-title {
+    padding: 1rem 0.2rem;
+    margin: 0;
+}
+
+.form-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.form-item {
+    padding: 0.5rem 0;
+}
+
+label {
+    padding: 1rem;
+}
+
+input, textarea {
+
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    box-shadow: inset 0 0 10px 0px #27187E88;
+    padding: 10px;
+    max-width: 190px;
+    min-width: 190px;
+    margin-top: 0.5rem;
+    border-radius: 1rem;
+    transition: box-shadow 0.2s ease-out;
+}
+
+textarea {
+    min-height: 2.5rem;
+
+}
+
+input:focus, textarea:focus {
+    transition: box-shadow 0.2s ease-in;
+    box-shadow: inset 0 0 10px 0px #FFAE00;
+}
+
+.form-submit-container {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    gap: 0.5rem;
+
+    padding: 0 0.5rem 1rem;
+}
+
+.form-submit-container button {
+    font-weight: bold;
+    padding: 0.25rem 0;
+    border: none;
+    background-color: #F1F2F6;
+    border-radius: 1rem;
+
+    transition: 
+        background-color 0.1s ease-out,
+        color 0.1s ease-out;
+}
+
+.form-submit-container button:hover {
+    background-color: #27187E ;
+    color: #FFAE00;
+    cursor: pointer;
+    transition: 
+        background-color 0.1s ease-in,
+        color 0.1s ease-in;
+
+}
+
+
+
+
+/* #27187E #758BFD 
+#9EC7FF #F1F2F6 #FFAE00 */

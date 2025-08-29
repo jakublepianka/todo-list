@@ -1,7 +1,3 @@
-// project class
-// has name and description
-// stores todo objects
-// can add new todo objects into already created project objects?
 import { todoModel } from "./todoModel.js"
 
 export const projectModel = (function(){
@@ -36,26 +32,22 @@ export const projectModel = (function(){
 
     function createDefaultProject(){
         
-        const defaultProject = createProject('Your Project, but the this time the title is long', 'Your first project');
-        const defaultTodo = defaultProject.createNewTodo('To do a habibi', 'Here i would like to place a somewhat detailed description of a task');
+        const defaultProject = createProject('Your project', 'This is a place for a description of this project');
+        const defaultTodo = defaultProject.createNewTodo('To buy milk', 'This is a place for a description of this TODO');
 
         defaultTodo.editDueDate(new Date(2026, 11, 31));
         defaultTodo.editPriority(3);
-        defaultTodo.editNotes('To do a habibi and remberaaaaaaaaaaaaaaaaaaa uuuuuuu it\'s a very long note');
-        defaultTodo.createCheckbox('before habibi to do origami');
-        defaultTodo.createCheckbox('After origami do a girobi');
+        defaultTodo.editNotes('A place for your notes. You can write a lot of letters in here');
+        defaultTodo.createCheckbox('I am a subtask 1');
+        defaultTodo.createCheckbox('I am a subtask 2');
         
-        addTodoToProjectsTodos(defaultProject.projectTodos, defaultTodo);
+        defaultProject.addTodo(defaultTodo);
         addProjectToProjectsList(defaultProject);
         return defaultProject;
     }
 
     function addProjectToProjectsList(project){
         projectsList.push(project);
-    }
-
-    function addTodoToProjectsTodos(projectsTodos, todo){
-        projectsTodos.push(todo);
     }
 
     function deleteProjectFromProjectsList(project){

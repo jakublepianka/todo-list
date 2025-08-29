@@ -4,56 +4,55 @@
 
 export const todoModel = (function(){
 
-    const createTodo = function(title, description = ''){
+    const createTodo = function(givenTitle, givenDescription = 'Task description'){
         
-        const todoId = crypto.randomUUID();
-        let todoTitle = title;
-        let todoDescription = description;
-        let todoDueDate;
-        let todoPriority;
-        let todoNotes;
-        let isCompleted = false;
-        const todoChecklist = [];
-
         const priorityLevels = {
-            0: 'low',
-            1: 'medium',
-            2: 'high',
-            3: 'very high',
+            0: 'Low',
+            1: 'Medium',
+            2: 'High',
+            3: 'Very high',
         };
 
-        const editTitle = (newTitle) => { todoTitle = newTitle; };
-        const editDescription = (newDescription) => { todoDescription = newDescription; };
-        const editDueDate = (newDate) => { todoDueDate = newDate.toLocaleDateString("pl-PL"); };
+        const todoId = crypto.randomUUID();
+        let title = givenTitle;
+        let description = givenDescription;
+        let dueDate = new Date().toLocaleDateString("pl-PL");
+        let priority = priorityLevels[0];
+        let notes = 'This is a place for your notes';
+        let isCompleted = false;
+        const checklist = [];
+
+        const editTitle = (newTitle) => { title = newTitle; };
+        const editDescription = (newDescription) => { description = newDescription; };
+        const editDueDate = (newDate) => { dueDate = new Date(newDate).toLocaleDateString("pl-PL"); };
         const editPriority = (priorityLevel) => {
             if(!(/(^[0-3])$/.test(priorityLevel))){
                 return console.log("error wrong priority level (MAKE SEPERATE LOGGER OR MESSAGE MODULE (?))");
             } 
-            todoPriority = priorityLevels[priorityLevel];
+            priority = priorityLevels[priorityLevel];
         }
-        const editNotes = (newText) => { todoNotes = newText; };
+        const editNotes = (newText) => { notes = newText; };
         const toggleTodoCompletion = () => { isCompleted = !isCompleted; };
-        
         const createCheckbox = (text) => {
-            return {
-                // id: crypto.randomUUID(),
-                description: text,
+            addCheckbox({
+                checkboxDescription: text,
                 isTrue: false,
-            }
+            });
         };
-        const addCheckbox = (checkboxObj) => { todoChecklist.push(checkboxObj); };
-        const toggleCheckboxCompletion = (checkboxObj) => { todoChecklist[todoChecklist.indexOf(checkboxObj)].isTrue = !todoChecklist[todoChecklist.indexOf(checkboxObj)].isTrue; }; 
-        const deleteCheckbox = (checkboxObj) => { todoChecklist.splice(todoChecklist.indexOf(checkboxObj), 1); };
+        const addCheckbox = (checkboxObj) => { checklist.push(checkboxObj); };
+        const toggleCheckboxCompletion = (checkboxObj) => { checklist[checklist.indexOf(checkboxObj)].isTrue = !checklist[checklist.indexOf(checkboxObj)].isTrue; }; 
+        const deleteCheckbox = (checkboxObj) => { checklist.splice(checklist.indexOf(checkboxObj), 1); };
 
         return {
-            // get todoId() { return todoId; },
-            get todoTitle() { return todoTitle; },
-            get todoDescription() { return todoDescription; },
-            get todoDueDate() { return todoDueDate; },
-            get todoPriority() { return todoPriority; },
-            get todoNotes() { return todoNotes; },
-            get todoChecklist() { return todoChecklist; },
+            get todoId() { return todoId; },
+            get title() { return title; },
+            get description() { return description; },
+            get dueDate() { return dueDate; },
+            get priority() { return priority; },
+            get notes() { return notes; },
+            get checklist() { return checklist; },
             get isCompleted() { return isCompleted; },
+            get priorityLevels() { return priorityLevels; },
             editTitle,
             editDescription,
             editDueDate,
@@ -66,6 +65,7 @@ export const todoModel = (function(){
             deleteCheckbox
         }
     };
+
 
     return {
         createTodo

@@ -1,0 +1,745 @@
+@font-face {
+    font-family: "Dune";
+    src: url('../assets/fonts/Dune_Rise.ttf');
+}
+
+@font-face {
+    font-family: "Modern Sans";
+    src: url('../assets/fonts/ModernSans-Light.otf');
+}
+
+.leave-button {
+    position: absolute;
+    right: 0.7rem;
+    align-self: center;
+    padding: 0.2rem 0.7rem;
+    margin: 0;
+    border-radius: 3rem;
+    border: none;
+    font-weight: 800;
+    font-size: 1.2rem;
+    aspect-ratio: 1/1;
+ 
+    transition: 
+        background-color 0.1s ease-out,
+        color 0.1s ease-out;
+}
+
+
+.leave-button:hover {
+    background-color: rgb(223, 77, 77);
+    color: #F1F2F6;
+    font-weight: 900;
+    cursor: pointer;
+
+    transition: 
+        background-color 0.1s ease-in,
+        color 0.1s ease-in;
+}
+
+.leave-button:hover > .leave-icon {
+    filter: invert(1);
+}
+
+.leave-icon {
+    width: 24px;
+    transform: translateX(3px) translateY(4px);
+
+}
+
+
+/* 
+    leave button ^
+    ============================================================
+    todo card v
+*/
+
+.todo-card {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    background: #F1F2F6;
+    box-shadow: 2px 2px 15px -5px #27187E;
+    width: 90%;
+    height: fit-content;
+    border-radius: 1rem;
+    margin: 0.5rem 0;
+}
+
+.todo-header {
+    position: relative;
+    display: grid;
+    border: none;
+    margin: 0;
+    min-height: 60px;
+    padding-bottom: 0.5rem;
+}
+
+.todo-title {
+    text-align: center;
+    align-self: center;
+    padding: 1rem 0.2rem 0.2rem;
+    margin: 0;
+}
+
+.todo-title#completed {
+    text-decoration: line-through;
+    color: rgb(0, 0, 0, 0.7);
+}
+
+
+.completion-button-incomplete, .completion-button-complete {
+    background-color: #F1F2F6;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.completion-button-incomplete::after, .completion-button-complete::after {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 50%;
+    bottom: 0;
+    left: 25%;
+    background-color: #9EC7FF;
+    transform: scaleX(0);
+
+    transition: transform 0.3s ease-out;
+}
+
+.completion-button-incomplete:hover::after, .completion-button-complete:hover::after {
+    transform: scaleX(1)
+}
+
+.todo-delete-button {
+    position: absolute;
+    right: 0.65rem;
+    top: 0.6rem;
+    background-color: rgb(0, 0, 0, 0.13);
+    font-weight: 900;
+    border-radius: 2rem;
+    width: 32px;
+    aspect-ratio: 1/1;
+}
+
+.todo-delete-button:hover {
+    background-color: rgb(223, 77, 77);
+}
+
+.todo-delete-button:hover > .todo-delete-icon {
+    filter: invert(1);
+}
+
+.todo-delete-icon {
+    width: 24px;
+    transform: translateY(2.5px);
+}
+
+
+/* 
+    todo card (header) ^
+    ============================================================
+    todo card (todo body)v
+*/
+
+.property-edit-button {
+    background-color: rgb(0, 0, 0, 0.17);
+    border-radius: 4rem;
+    width: 32px;
+    aspect-ratio: 1/1;
+}
+
+.property-edit-icon {
+    transform: translateX(0.3px) translateY(2.2px);
+    width: 18px;
+}
+
+
+.todo-body-show {
+    padding: 0.8rem 0 0.5rem;
+    padding-left: calc(1rem + 0.5cqw);
+    padding-right: calc(1rem + 0.5cqw);
+    box-shadow: 
+        inset 0 10px 15px -15px rgb(0, 0, 0, 0.4);
+
+    transition: 
+        color 0.2s ease-out,
+        background-color 0.2s ease-out;
+}
+
+.todo-body-show#completed * {
+    color: rgb(0, 0, 0, 0.4);
+
+    transition: 
+        color 0.2s ease-in,
+        background-color 0.2s ease-in;
+}
+
+.todo-body-show#completed .todo-date-priority-item {
+    background-color: rgb(0, 0, 0, 0.4);
+
+    transition: 
+        color 0.2s ease-in,
+        background-color 0.2s ease-in;
+}
+
+.todo-body-show#showing-again *:not(.todo-date-priority-item *) {
+    color: black;
+
+    animation: fadeIn 0.3s both;
+}
+
+@keyframes fadeIn {
+    from {
+        color: rgb(0, 0, 0, 0.4);
+    }
+    to {
+        color: black;
+    }
+}
+
+.todo-body-show#todo-body-completed .todo-date-priority-item {
+    background-color: rgba(189, 99, 99, 0.4);
+}
+
+.properties-list {
+    display: grid;
+    padding: 0.4rem 0;
+    gap: 0.4rem;
+}
+
+.description-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 0;
+    padding: 0.3rem 2.5rem 0.7rem 0;
+    overflow-wrap: break-word;
+    
+    order: 1;
+}
+
+.description-text {
+    margin: 0;
+    text-align: center; 
+}
+
+.description-item > .property-edit-button {
+    position: absolute;
+    background-color: rgb(0, 0, 0, 0.1);
+    right: 0;
+}
+
+.description-item > .property-edit-button:hover {
+    background-color: #9EC7FF;
+}
+
+.description-form-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 1rem 0 1rem 0;
+
+}
+
+.description-textarea {
+    box-sizing: border-box;
+    grid-column: 1 / 3;
+    resize: vertical;
+    min-height: 1.25rem;
+    padding: 4px;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.description-form-item > button {
+    background-color: #d4e6ff;  
+
+}
+
+.description-submit-button {
+    border-radius: 0 0 0 0.5rem;
+}
+
+.description-cancel-button {
+    border-radius: 0 0 0.5rem 0;
+}
+
+.description-form-item > button:hover {
+    background-color: #9EC7FF;
+    cursor: pointer;
+}
+
+.todo-date-priority-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-weight: 600;
+    font-size: 0.95em;
+    padding: 0.5rem 0.8rem;
+    border-radius: 0.5rem;
+    gap: 0.5rem;
+    
+
+    order: 2;
+}
+
+.todo-date-priority-item#low {
+    background-color: rgb(96, 215, 245);
+}
+
+.todo-date-priority-item#medium {
+    background-color: rgb(118, 255, 113);
+}
+
+.todo-date-priority-item#high {
+    background-color: rgb(219, 189, 56);
+}
+
+.todo-date-priority-item#veryhigh {
+    background-color: rgb(240, 74, 74);
+}
+
+.todo-date-priority-item#veryhigh * {
+    filter: invert(1);
+    color: #F1F2F6;
+    
+}
+
+.todo-date-priority-item#veryhigh option {
+    color: black;
+}
+
+.todo-date-priority-item button:hover {
+    background-color: #9EC7FF;
+}
+
+
+.date-box {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    letter-spacing: 1px;
+    text-indent: 1px;
+    text-align: center;
+    align-items: center;
+    order: 1;
+
+}
+
+.date-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    line-height: 16px;
+}
+
+
+
+/* .date-box > .property-edit-button {
+} */
+
+
+.priority-box {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    letter-spacing: 1px;
+    text-indent: 1px;
+    text-align: center;
+    align-items: center;
+    order: 2;
+}
+
+.priority-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.date-form-box {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-self: center;
+    border-radius: 0.5rem;
+    order: 1;    
+}
+
+.date-input {
+    grid-column: 1 / 3;
+    border-radius: 0.5rem 0.5rem 0 0;
+    font-weight: 600;
+    background-color: rgb(0, 0, 0, 0.13);
+    text-align: center;
+
+}
+
+.date-submit-button {
+    background-color: rgb(0, 0, 0, 0.13);
+    border-radius: 0 0 0 0.5rem;
+    font-weight: 600;
+
+}
+
+.date-submit-button-icon {
+    width: 17px;
+}
+
+
+.date-cancel-button {
+    background-color: rgb(0, 0, 0, 0.13);
+    border-radius: 0 0 0.5rem 0;
+    font-weight: 600;
+
+}
+
+.date-cancel-button-icon {
+    width: 13px;
+}
+
+.priority-form-box {
+    justify-self: center;
+    order: 2;
+    font-weight: 600;
+
+}
+
+.priority-select {
+    font-weight: 600;
+    height: 100%;
+    border-radius: 0.5rem;
+    background-color: rgb(0, 0, 0, 0.13);
+
+}
+
+.priority-select option {
+    text-align: center;
+    font-weight: 600;
+}
+
+
+.priority-select #low {
+    background-color: rgb(96, 215, 245);
+}
+
+.priority-select #medium {
+    background-color: rgb(118, 255, 113);
+}
+
+
+.priority-select #high {
+    background-color: rgb(219, 189, 56);
+}
+
+.priority-select #veryhigh {
+    color: #F1F2F6;
+    background-color: rgb(240, 74, 74);
+}
+
+/* 
+    todo card (todo date/priority) ^
+    ============================================================
+    todo card (todo notes) v
+  
+*/
+
+
+.notes-item {
+    display: flex;
+    position: relative;
+    padding: 1rem 2.3rem 1rem 0;
+    align-items: center;
+    text-align: center;
+    order: 3;
+}
+
+.notes-item > .property-edit-button {
+    position: absolute;
+    content: "";
+    right: 0;
+    background-color: rgb(0, 0, 0, 0.1);
+
+}
+
+.notes-item > .property-edit-button:hover {
+    background-color: #9EC7FF;
+}
+
+
+.notes-form-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 1rem 0 1rem 0;
+    order: 3;
+
+}
+
+.notes-form-item > textarea {
+    box-sizing: border-box;
+    grid-column: 1 / 3;
+    resize: vertical;
+    min-width: 268px;
+    min-height: 1.25rem;
+    height: auto;
+    padding: 4px;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.description-form > button {
+    background-color: #d4e6ff;  
+
+}
+
+.description-submit-button {
+    border-radius: 0 0 0 0.5rem;
+}
+
+.description-cancel-button {
+    border-radius: 0 0 0.5rem 0;
+}
+
+.description-form > button:hover {
+    background-color: #9EC7FF;
+    cursor: pointer;
+}
+
+/* 
+    todo card (todo notes)^
+    ============================================================
+    todo card (todo checklist) v
+*/
+
+
+.checklist-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #d4e6ff;
+    padding-top: 0.5rem;
+    margin-bottom: 0.4rem;
+    border-radius: 0.5rem;
+}
+
+.checklist-list {
+    display: grid;
+    height: fit-content;
+    padding-bottom: 0.5rem;
+    padding-left: 0.5rem;
+    gap: 0.5rem;
+}
+
+.checklist-list-info {
+    text-align: center;
+    text-indent: -8px;
+    padding: 0;
+}
+
+.checkbox-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-right: 34px;
+    gap: 0.6rem;
+    
+}
+
+.checkbox-item > input {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.checkbox-item > label.checked {
+    text-decoration: line-through;
+}
+
+.checkbox-delete-button {
+    position: absolute;
+    background-color: rgb(0, 0, 0, 0.1);
+    border-radius: 2rem;
+    width: 18px;
+    height: 18px;
+    aspect-ratio: 1/1;
+    right: 8px;
+}
+
+.checkbox-delete-button:hover {
+    background-color: rgb(223, 77, 77);
+}
+
+.checkbox-delete-button:hover > .checkbox-delete-icon{
+    filter: invert(1);
+}
+
+.checkbox-delete-icon {
+    width: 14px;
+    transform: translateX(0.1px) translateY(1.2px);
+}
+
+.add-checkbox-button {
+    border: none;
+    font-size: 2rem;
+    width: 100%;
+    border-radius: 0 0 0.75rem 0.75rem;
+    background-color: #d4e6ff;
+    order: 999;
+
+}
+
+.add-checkbox-button:hover {
+    background-color: #9EC7FF;
+
+    cursor: pointer;
+}
+
+.checkbox-form-container-wrapper {
+    padding: 0 0.5rem 0.5rem;
+}
+
+.checkbox-form-container {
+    border-radius: 0.5rem;
+}
+
+.checkbox-form-container {
+    display: grid;
+    position: relative;
+    background-color: #F1F2F6;
+    align-items: center;
+    transition: box-shadow 0.2s ease-out;
+
+}
+
+.checkbox-form-container > input {
+    box-sizing: border-box;
+    padding: 5px 64px 5px 10px;
+    border-radius: 0.5rem 0 0 0.5rem;
+    background-color: transparent;
+    width: 100%;
+    /* height: 100%; */
+}
+
+.submit-checkbox-button {
+    position: absolute;
+    background-color: rgb(0, 0, 0, 0.13);
+    height: 32.07px;
+    width: 32.07px;
+    right: 32.07px;
+}
+
+.submit-checkbox-button-icon {
+    width: 17px;
+    transform: translateX(1px);
+}
+
+
+.submit-checkbox-button:hover {
+    background-color: #9EC7FF;
+    cursor: pointer;
+}
+
+.cancel-checkbox-button {
+    position: absolute;
+    border-radius: 0 0.5rem 0.5rem 0;
+    background-color: rgb(0, 0, 0, 0.13);
+    height: 32.07px;
+    width: 32.07px;
+    right: 0;
+    
+}
+
+.cancel-checkbox-button-icon {
+    width: 13px;
+}
+
+.cancel-checkbox-button:hover {
+    background-color: rgb(223, 77, 77);
+    color: #F1F2F6;
+    cursor: pointer;
+}
+
+/* 
+    todo card (todo body)^
+    ============================================================
+    todo card (todo footer) v
+*/
+
+.todo-footer {
+    display: flex;
+    justify-content: center;
+}
+
+.todo-expand-button {
+    flex: 1 1 0;
+    border: none;
+    background-color: #F1F2F6;
+    padding: 0;
+    margin: 0;
+    height: 36px;
+    border-radius: 0 0 1rem 1rem;
+
+    transition: background-color 0.2s ease-out;
+}
+
+.todo-expand-button:hover {
+    cursor: pointer;
+    background-color: #9EC7FF;
+    color: white;
+    font-weight: 900;
+
+    transition: background-color 0.2s ease-in;
+
+}
+
+/* 
+    todo card (todo footer) v
+    ============================================================
+    todo add button v
+*/
+
+.todo-add-button {
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+    color: #27187E;
+    box-shadow: 2px 2px 15px -5px #27187E;
+    width: 90%;
+    min-height: 60px;
+    height: 60px;
+    margin: 0.5rem 0;
+
+
+    border-radius: 1rem;
+    padding: 0 0.5rem;
+    text-align: center;
+
+    cursor: pointer;
+
+    order: 999;
+
+    animation-name: shrink;
+    animation-duration: 200ms;
+    animation-fill-mode: both;
+}
+
+.todo-add-button:hover {
+    animation-name: grow;
+    animation-duration: 200ms;
+    animation-fill-mode: both;
+}
+
+@keyframes grow {
+    from {
+        transform: scale(1);
+        background: linear-gradient(90deg, #FFAE00 -700%, #9EC7FF 200%);
+    }
+    to {
+        transform: scale(1.05);
+        background: linear-gradient(90deg,#9EC7FF -100%, #FFAE00 500%);
+
+    }
+}
+
+
+
+/* #27187E #758BFD 
+#9EC7FF #F1F2F6 #FFAE00 */

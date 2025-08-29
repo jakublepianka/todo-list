@@ -204,7 +204,7 @@ export const projectDOM = (function(){
                 
                 titleSpan.textContent = todo.title;
                 dueDateSpan.textContent = todo.dueDate;
-                prioritySpan.textContent = todo.priority;
+                prioritySpan.textContent = todo.priority
     
                 todoList.appendChild(item);
                 item.appendChild(titleSpan);

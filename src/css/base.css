@@ -1,0 +1,108 @@
+@font-face {
+    font-family: "Dune";
+    src: url('../assets/fonts/Dune_Rise.ttf');
+}
+
+@font-face {
+    font-family: "Modern Sans";
+    src: url('../assets/fonts/ModernSans-Light.otf');
+}
+
+* {
+    word-break: normal;
+    overflow-wrap: anywhere;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+
+}
+
+body {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: auto 1fr;
+
+    gap: 1.25rem;
+    padding: 1.5rem 2rem;
+    background: #F1F2F6;
+    background: linear-gradient( #9EC7FF -700%, #F1F2F6 300%);
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    font-family: "Dune";
+    background: #9EC7FF;
+    background: linear-gradient(240deg, #FFAE00 -300%, #9EC7FF 90%);
+    border-radius: 1rem;
+    padding: 1rem 1rem 0.4rem;
+    box-shadow: 2px 2px 15px -5px #27187E;
+    letter-spacing: 1rem;
+    /* text-indent: 1rem; */
+    
+}
+
+header > h1 {
+    padding-left: 1rem;
+    text-align: center;
+}
+
+#content {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    font-family: "Modern Sans";
+    border-radius: 1rem;
+    background: #758BFD;
+    background: linear-gradient(90deg, #758BFD -30% , #FFAE00 300%);
+    box-shadow: 2px 2px 15px -5px #27187E; 
+}
+
+.content-header {
+    display: flex;
+    justify-content: center;
+    background-color: #758BFD;
+    border-radius: 1rem 1rem 0 0;
+    padding: 0 5rem;
+    position: relative;
+}
+
+.content-header > .content-title {
+    text-align: center;
+    letter-spacing: 0.2rem;
+    text-indent: 0.2rem;
+    padding: 0.75rem 0;
+    margin: 0;
+    border-radius: 1rem 1rem 0 0;
+}
+
+.content-body {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 370px);
+    grid-auto-rows: min-content;
+    padding: 2rem 1rem;
+    box-shadow: inset 0 12px 20px -20px  #000000AA;
+    font-size: 1.1em;
+
+}
+
+ul, li, p {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+input, textarea, button, select {
+    outline: none;
+    border: none;
+    padding: 0;
+}
+
+button {
+    cursor: pointer;
+}
+
+img {
+    width: 32px;
+}

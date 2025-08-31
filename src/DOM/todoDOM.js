@@ -1,7 +1,6 @@
+// import { projectModel } from "../Models/projectModel";
 import { eventBus } from "../eventBus";
 import { projectDOM } from "./projectDOM";
-import { todoModel } from "../Models/todoModel"
-import { projectModel } from "../Models/projectModel"
 import editImage from "../assets/icons/edit.png"
 import leaveImage from "../assets/icons/logout.png"
 import deleteImage from "../assets/icons/trash.png"
@@ -184,7 +183,6 @@ export const todoDOM = (function(){
                     textArea.addEventListener("input", () => {
                             textArea.style.height = "auto";
                             textArea.style.height = textArea.scrollHeight + 16 + "px";
-                            // textArea.style.width = "100%"; 
                     });
 
                     const createSubmitButton = () => {
@@ -347,8 +345,6 @@ export const todoDOM = (function(){
                                 loadDate();
                                 return;
                             }
-                            // if (dateAndPriorityItem.getElementsByClassName('date-form-box').length > 0
-                            // || dateAndPriorityItem.getElementsByClassName('date-box').length > 0) return;
 
                             parentElement.remove();                            
                             todo.editDueDate(dateInput.value);
@@ -373,9 +369,6 @@ export const todoDOM = (function(){
                         cancelBtn.addEventListener("click", (event) => {
 
                             const parentElement = event.currentTarget.parentNode;
-
-                            // if (dateAndPriorityItem.getElementsByClassName('date-form-box').length > 0
-                            // || dateAndPriorityItem.getElementsByClassName('date-box').length > 0) return;
 
                             parentElement.remove();
                             loadDate();
@@ -714,7 +707,17 @@ export const todoDOM = (function(){
 
             completionStateBtn.classList.add('completion-button-incomplete');
 
-            todo.isCompleted ? completionStateBtn.textContent = 'Completed!' 
+            function changeToCompleted(){
+                    completionStateBtn.className = '';
+                    completionStateBtn.classList.add('completion-button-complete');
+                    completionStateBtn.textContent = 'Completed!'
+                    todoBody.id = '';
+                    todoBody.id = 'completed'
+                    todoTitle.id = '';
+                    todoTitle.id = 'completed'
+            }
+
+            todo.isCompleted ? changeToCompleted() 
             : completionStateBtn.textContent = 'Mark as completed';
 
             completionStateBtn.addEventListener("click", () => {
@@ -724,13 +727,7 @@ export const todoDOM = (function(){
                 todo.toggleTodoCompletion();
                 
                 if(todo.isCompleted) {
-                    completionStateBtn.className = '';
-                    completionStateBtn.classList.add('completion-button-complete');
-                    completionStateBtn.textContent = 'Completed!'
-                    todoBody.id = '';
-                    todoBody.id = 'completed'
-                    todoTitle.id = '';
-                    todoTitle.id = 'completed'
+                    changeToCompleted();
                     return;
                 }
 
@@ -864,8 +861,11 @@ export const todoDOM = (function(){
                 }
 
                 titleError.textContent = '';
-
-                const submittedTodo = project.createNewTodo(titleInput.value, descriptionInput.value || undefined);
+                const submittedTodo = project.createNewTodo({
+                    title: titleInput.value, 
+                    todoDescription: descriptionInput.value || undefined, 
+                    id: project.projectId
+                });
 
                 eventBus.publish('todoAdded', {
                     todoObject: submittedTodo,

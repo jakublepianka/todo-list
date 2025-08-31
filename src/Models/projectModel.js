@@ -1,20 +1,32 @@
+import { storage } from "../storage.js"
 import { todoModel } from "./todoModel.js"
 
 export const projectModel = (function(){
 
     const projectsList = [];
 
-    const createProject = function(name, description = '') {
+    const createProject = function({
+        name, 
+        description = '', 
+        id = crypto.randomUUID(), 
+        todos = []
+    }){
     
-        const projectId = crypto.randomUUID();
+        const projectId = id;
         let projectName = name;
         let projectDescription = description;
-        const projectTodos = [];
+        const projectTodos = [...todos];
      
         const editName = (newName) => { projectName = newName; };
         const editDescription = (newDescription) => { projectDescription = newDescription; };
         const addTodo = (newTodo) => { projectTodos.push(newTodo); };
-        const createNewTodo = (title, description) => { return todoModel.createTodo(title, description); };
+        const createNewTodo = ({title, todoDescription, id}) => { 
+            return todoModel.createTodo({
+                givenTitle: title,
+                givenDescription: todoDescription, 
+                projectId: id
+            }); 
+        };
         const deleteTodo = (todoId) => { projectTodos.splice(projectTodos.indexOf(todoId), 1); };
 
         return {
@@ -32,7 +44,7 @@ export const projectModel = (function(){
 
     function createDefaultProject(){
         
-        const defaultProject = createProject('Your project', 'This is a place for a description of this project');
+        const defaultProject = createProject({name: 'Your project', description: 'This is a place for a description of this project'});
         const defaultTodo = defaultProject.createNewTodo('To buy milk', 'This is a place for a description of this TODO');
 
         defaultTodo.editDueDate(new Date(2026, 11, 31));

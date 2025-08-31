@@ -1,3 +1,4 @@
+import { storage } from "../storage";
 import { projectModel } from "../Models/projectModel";
 import { todoDOM } from "./todoDOM";
 import viewImage from "../assets/icons/book.png"
@@ -20,7 +21,6 @@ export const projectDOM = (function(){
 
         contentTitle.textContent = 'Your Projects';
 
-
         content.appendChild(contentHeader);
         contentHeader.appendChild(contentTitle);
         content.appendChild(contentBody);
@@ -40,6 +40,7 @@ export const projectDOM = (function(){
         clearButton.addEventListener("click", () => {
             
             projectModel.deleteAllProjects();
+            storage.deleteAllProjects();
             contentBody.replaceChildren();
             createAddProjectButton();
             clearButton.remove();
@@ -289,6 +290,8 @@ export const projectDOM = (function(){
 
     function loadAllExistingProjects(projectsList){
         if (contentBody.getElementsByClassName('project-card').length !== 0) return;
+        if (projectsList === undefined) return;
+
         projectsList.forEach(project => {
             loadProjectCard(project);
         });
@@ -296,7 +299,7 @@ export const projectDOM = (function(){
 
     function loadEverything(){
         loadBaseProjectElements();
-        loadAllExistingProjects(projectModel.projectsList);
+        loadAllExistingProjects(storage.getProjectsList());
     }
 
     const createAddProjectButton = () => {
@@ -396,12 +399,16 @@ export const projectDOM = (function(){
                 }
 
                 nameError.textContent = '';
-                const submittedProject = projectModel.createProject(nameInput.value, descriptionInput.value);
+                const submittedProject = projectModel.createProject({
+                    name: nameInput.value, 
+                    description: descriptionInput.value,
+                    id: undefined
+                });
+
                 projectModel.addProjectToProjectsList(submittedProject);
-                formCard.remove();                
+                storage.setProjectIntoStorage(submittedProject);
+                formCard.remove();
                 loadProjectCard(submittedProject);
-                console.log(projectModel.projectsList);
-            
             });
         
             return formSubmitBtn;

@@ -1,4 +1,4 @@
-import { storage } from "../storage.js"
+import { eventBus } from "../eventBus.js"
 import { todoModel } from "./todoModel.js"
 
 export const projectModel = (function(){
@@ -17,24 +17,43 @@ export const projectModel = (function(){
         let projectDescription = description;
         const projectTodos = [...todos];
      
-        const editName = (newName) => { projectName = newName; };
-        const editDescription = (newDescription) => { projectDescription = newDescription; };
+        const editDescription = (newDescription) => {
+            projectDescription = newDescription; 
+            publishUpdate();
+        };
         const addTodo = (newTodo) => { projectTodos.push(newTodo); };
-        const createNewTodo = ({title, todoDescription, id}) => { 
+        const createNewTodo = ({title, todoDescription, parentId}) => { 
             return todoModel.createTodo({
                 givenTitle: title,
                 givenDescription: todoDescription, 
-                projectId: id
+                projectId: parentId
             }); 
         };
         const deleteTodo = (todoId) => { projectTodos.splice(projectTodos.indexOf(todoId), 1); };
+
+        function publishUpdate(){
+            const projectObject = {
+                get projectId() { return projectId; },
+                get projectName() { return projectName; },
+                get projectDescription() { return projectDescription; },
+                get projectTodos() { return projectTodos; },
+                editDescription,
+                addTodo,
+                createNewTodo,
+                deleteTodo
+            };
+
+            eventBus.publish('projectModified', {
+                projObj: projectObject,
+                projectId: projectId
+            });
+        }
 
         return {
             get projectId() { return projectId; },
             get projectName() { return projectName; },
             get projectDescription() { return projectDescription; },
             get projectTodos() { return projectTodos; },
-            editName,
             editDescription,
             addTodo,
             createNewTodo,

@@ -105,8 +105,6 @@ export const todoModel = (function(){
                 toggleCheckboxCompletion,
                 deleteCheckbox
             };
-
-            console.log(todoObject);
             eventBus.publish('todoModified', {
                 todoObj: todoObject,
                 projectId: parentId

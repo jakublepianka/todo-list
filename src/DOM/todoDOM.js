@@ -45,7 +45,6 @@ export const todoDOM = (function(){
         
         if(contentBody.getElementsByClassName('todo-card').length !== 0) return;
         project.projectTodos.forEach(todo => {
-
             loadTodoCard(todo, project);
         });
     }
@@ -864,7 +863,7 @@ export const todoDOM = (function(){
                 const submittedTodo = project.createNewTodo({
                     title: titleInput.value, 
                     todoDescription: descriptionInput.value || undefined, 
-                    id: project.projectId
+                    parentId: project.projectId
                 });
 
                 eventBus.publish('todoAdded', {
@@ -931,6 +930,7 @@ export const todoDOM = (function(){
             content.replaceChildren();
             contentBody.replaceChildren();
             projectDOM.loadEverything();
+            
         });
 
         contentHeader.appendChild(leaveButton);

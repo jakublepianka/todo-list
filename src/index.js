@@ -29,11 +29,16 @@ import "./css/todos.css"
 
 })();
 
+eventBus.subscribe('projectModified', ({projObj, projectId}) => {
+    const index = projectModel.projectsList.findIndex(p => p.projectId === projectId );
+    projectModel.projectsList.splice(index, 1, projObj);
+    storage.updateProject(projectModel.projectsList[index]);
+});
+
 eventBus.subscribe('todoDeleted', ({todoId, projectId}) => {
     const project = projectModel.projectsList.find(p => p.projectId === projectId );    
     storage.deleteTodoFromProject(todoId, projectId);
     project.deleteTodo(todoId);
-
 });
 
 eventBus.subscribe('todoAdded', ({todoObject, projectId}) => {
@@ -45,6 +50,6 @@ eventBus.subscribe('todoAdded', ({todoObject, projectId}) => {
 
 eventBus.subscribe('todoModified', ({todoObj, projectId}) => {
     const project = projectModel.projectsList.find(p => p.projectId === projectId );
-    project.projectTodos.splice(project.projectTodos.indexOf(todoObj.todoId), 1, todoObj);
+    project.projectTodos[project.projectTodos.findIndex(todo => todo.todoId === todoObj.todoId)] = todoObj;
     storage.updateProject(project);
 });

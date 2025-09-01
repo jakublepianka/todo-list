@@ -1,4 +1,3 @@
-import { eventBus } from "./eventBus.js"
 import { todoModel } from "./Models/todoModel.js";
 import { projectModel } from "./Models/projectModel.js";
 
@@ -37,8 +36,8 @@ export const storage = (function() {
     function rehydrateProject(gottenProject){
         const rehydratedTodos = [];
         
-        for (let todo of gottenProject.projectTodos) {
-            rehydratedTodos.push(rehydrateTodo(todo));
+        for (let i = 0; i < gottenProject.projectTodos.length; i++) {
+            rehydratedTodos.push(rehydrateTodo(gottenProject.projectTodos[i]));
         }
 
         return projectModel.createProject({

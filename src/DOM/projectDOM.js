@@ -24,8 +24,8 @@ export const projectDOM = (function(){
         content.appendChild(contentHeader);
         contentHeader.appendChild(contentTitle);
         content.appendChild(contentBody);
+        createAddProjectButton();
         if(contentHeader.getElementsByClassName('clear-button').length !== 0) return;
-        createAddProjectButton()
         addClearButton();
     } 
 
@@ -195,22 +195,28 @@ export const projectDOM = (function(){
             project.projectTodos.forEach(todo => {
                 const item = document.createElement('li');
                 const titleSpan = document.createElement('span');
+                const dateAndPriority = document.createElement('div');
                 const dueDateSpan = document.createElement('span');
                 const prioritySpan = document.createElement('span');
     
                 item.classList.add('project-todo-item');
                 titleSpan.classList.add('project-todo-title');
+                dateAndPriority.classList.add('date-and-priority');
                 dueDateSpan.classList.add('project-todo-date');
                 prioritySpan.classList.add('project-todo-priority');
                 
+
                 titleSpan.textContent = todo.title;
                 dueDateSpan.textContent = todo.dueDate;
                 prioritySpan.textContent = todo.priority
-    
+
+                dateAndPriority.id = prioritySpan.textContent.split(' ').join("").toLowerCase();
+
                 todoList.appendChild(item);
                 item.appendChild(titleSpan);
-                item.appendChild(dueDateSpan);
-                item.appendChild(prioritySpan);
+                item.appendChild(dateAndPriority);
+                dateAndPriority.appendChild(dueDateSpan);
+                dateAndPriority.appendChild(prioritySpan);
     
             });
         }
@@ -289,7 +295,6 @@ export const projectDOM = (function(){
 
 
     function loadAllExistingProjects(projectsList){
-        if (contentBody.getElementsByClassName('project-card').length !== 0) return;
         if (projectsList === undefined) return;
 
         projectsList.forEach(project => {
@@ -298,8 +303,11 @@ export const projectDOM = (function(){
     }
 
     function loadEverything(){
+
+        contentBody.replaceChildren();
         loadBaseProjectElements();
         loadAllExistingProjects(storage.getProjectsList());
+
     }
 
     const createAddProjectButton = () => {

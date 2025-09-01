@@ -83,7 +83,7 @@ export const projectDOM = (function(){
             textArea.style.width = '100%';
             
     
-            if (newProject.description === '') { 
+            if (newProject.projectDescription === '') { 
                 textArea.placeholder = 'Project\'s Description here!';
             } else {
                 textArea.textContent = newProject.projectDescription;
@@ -172,7 +172,7 @@ export const projectDOM = (function(){
             projectDescriptionText.classList.add('project-description-text');
             projectDescriptionWrapper.classList.add('project-description-wrapper');
 
-            projectDescriptionText.textContent = newProject.projectDescription;
+            projectDescriptionText.textContent = newProject.projectDescription || 'Project\'s Description can be placed here!';
 
             projectBody.appendChild(projectDescriptionContainer);
             projectDescriptionContainer.appendChild(projectDescriptionWrapper);
@@ -194,12 +194,14 @@ export const projectDOM = (function(){
     
             project.projectTodos.forEach(todo => {
                 const item = document.createElement('li');
+                const itemContentWrapper = document.createElement('div');
                 const titleSpan = document.createElement('span');
                 const dateAndPriority = document.createElement('div');
                 const dueDateSpan = document.createElement('span');
                 const prioritySpan = document.createElement('span');
     
                 item.classList.add('project-todo-item');
+                itemContentWrapper.classList.add('project-todo-item-content-wrapper');
                 titleSpan.classList.add('project-todo-title');
                 dateAndPriority.classList.add('date-and-priority');
                 dueDateSpan.classList.add('project-todo-date');
@@ -210,11 +212,12 @@ export const projectDOM = (function(){
                 dueDateSpan.textContent = todo.dueDate;
                 prioritySpan.textContent = todo.priority
 
-                dateAndPriority.id = prioritySpan.textContent.split(' ').join("").toLowerCase();
+                itemContentWrapper.id = prioritySpan.textContent.split(' ').join("").toLowerCase();
 
                 todoList.appendChild(item);
-                item.appendChild(titleSpan);
-                item.appendChild(dateAndPriority);
+                item.appendChild(itemContentWrapper);
+                itemContentWrapper.appendChild(titleSpan);
+                itemContentWrapper.appendChild(dateAndPriority);
                 dateAndPriority.appendChild(dueDateSpan);
                 dateAndPriority.appendChild(prioritySpan);
     

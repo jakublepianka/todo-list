@@ -63,6 +63,7 @@ export const todoModel = (function(){
         };
         const createCheckbox = (text) => {
             addCheckbox({
+                checkboxId: crypto.randomUUID(),
                 checkboxDescription: text,
                 isTrue: false,
             });

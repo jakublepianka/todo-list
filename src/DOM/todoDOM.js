@@ -1,4 +1,3 @@
-// import { projectModel } from "../Models/projectModel";
 import { eventBus } from "../eventBus";
 import { projectDOM } from "./projectDOM";
 import editImage from "../assets/icons/edit.png"
@@ -531,8 +530,13 @@ export const todoDOM = (function(){
                     checkboxInput.type = 'checkbox';
                     checkboxLabel.textContent = `${checkbox.checkboxDescription}`;
                     
-                    checkboxLabel.setAttribute("for", `${checkbox.checkboxDescription}`);
-                    checkboxInput.setAttribute("id", `${checkbox.checkboxDescription}`);
+                    checkboxLabel.setAttribute("for", `${checkbox.checkboxId}`);
+                    checkboxInput.setAttribute("id", `${checkbox.checkboxId}`);
+
+                    if(checkbox.isTrue){
+                        checkboxInput.checked = true;
+                        checkboxLabel.classList.add('checked');
+                    }
 
                     const createDeleteCheckboxButton = () => {
 
@@ -565,15 +569,15 @@ export const todoDOM = (function(){
 
 
                     checkboxInput.addEventListener("click", () => {
-                        
-                        checkbox.isTrue = !checkbox.isTrue;
+
+                        todo.toggleCheckboxCompletion(checkbox);
                         checkboxLabel.className = '';
                         
                         if(checkbox.isTrue){
                             
                             checkboxLabel.classList.add('checked');
                             return;
-                        }     
+                        }
                         
                     });
 
@@ -714,6 +718,7 @@ export const todoDOM = (function(){
                     todoBody.id = 'completed'
                     todoTitle.id = '';
                     todoTitle.id = 'completed'
+                    todoCard.style = 'order: 998';
             }
 
             todo.isCompleted ? changeToCompleted() 
@@ -730,6 +735,7 @@ export const todoDOM = (function(){
                     return;
                 }
 
+                todoCard.style = '';
                 completionStateBtn.className = '';
                 completionStateBtn.classList.add('completion-button-incomplete');    
                 completionStateBtn.textContent = 'Mark as completed';

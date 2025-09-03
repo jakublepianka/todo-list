@@ -64,16 +64,19 @@ export const projectModel = (function(){
     function createDefaultProject(){
         
         const defaultProject = createProject({name: 'Your project', description: 'This is a place for a description of this project'});
-        const defaultTodo = defaultProject.createNewTodo('To buy milk', 'This is a place for a description of this TODO');
+        const defaultTodo = defaultProject.createNewTodo({
+            title: 'To buy milk', 
+            todoDescription: 'This is a place for a description of this TODO',
+            parentId: defaultProject.projectId,
+        });
 
         defaultTodo.editDueDate(new Date(2026, 11, 31));
         defaultTodo.editPriority(3);
         defaultTodo.editNotes('A place for your notes. You can write a lot of letters in here');
         defaultTodo.createCheckbox('I am a subtask 1');
         defaultTodo.createCheckbox('I am a subtask 2');
-        
+
         defaultProject.addTodo(defaultTodo);
-        addProjectToProjectsList(defaultProject);
         return defaultProject;
     }
 

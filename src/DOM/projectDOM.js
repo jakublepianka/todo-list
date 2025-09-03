@@ -81,17 +81,20 @@ export const projectDOM = (function(){
             textArea.classList.add('description-textarea');
             
             textArea.style.width = '100%';
-            
     
             if (newProject.projectDescription === '') { 
                 textArea.placeholder = 'Project\'s Description here!';
             } else {
                 textArea.textContent = newProject.projectDescription;
+                
             }
     
             textArea.addEventListener("input", () => {
+
                     textArea.style.height = "auto";
                     textArea.style.height = textArea.scrollHeight + 16 + "px";
+                    projectBody.style.height = 'fit-content';
+
             });
     
             const createSubmitButton = () => {
@@ -105,6 +108,8 @@ export const projectDOM = (function(){
                     event.target.parentNode.remove();                            
                     newProject.editDescription(textArea.value);
                     loadDescription();
+                    projectBody.style.height = 'fit-content';
+
     
                 });
                 return submitBtn;
@@ -120,7 +125,8 @@ export const projectDOM = (function(){
     
                     event.target.parentNode.remove();
                     loadDescription();
-    
+                    projectBody.style.height = 'fit-content';
+                    
                 });
     
                 return cancelBtn;
@@ -133,7 +139,6 @@ export const projectDOM = (function(){
     
             textArea.style.height = "auto";
             textArea.style.height = textArea.scrollHeight + 16 + "px";
-
         }
 
         const createDescriptionEditButton = () => {
@@ -153,6 +158,7 @@ export const projectDOM = (function(){
 
                 parentElement.remove();
                 loadDescriptionForm();
+                adjustCardHeight(projectBody.scrollHeight);
                 return;
 
             });
@@ -234,6 +240,8 @@ export const projectDOM = (function(){
 
             expandIcon.src = arrowImage;
             expandIcon.style.transform = "rotate(-180deg) translateY(-4px)";
+            projectBody.style.opacity = '0';
+
 
             let isClicked = false;
     
@@ -242,18 +250,29 @@ export const projectDOM = (function(){
                 if (isClicked) {
                     
                     expandIcon.style.transform = '';
+                    projectBody.style.opacity = '0';
 
                     loadDescription();
                     projectBody.appendChild(projectTodolistContainer);
                     loadTodolist(newProject);
-                    
+                    projectBody.style.height = '0';
+                    const height = projectBody.scrollHeight;
+                    projectBody.style.height = height + 'px';
+                    projectBody.style.opacity = '1';
                 } else {
 
                     expandIcon.style.transform = "rotate(-180deg) translateY(-4px)";
+                    projectBody.style.height = projectBody.scrollHeight + 'px';        
+                    projectBody.style.height = '0';
+                    projectBody.style.opacity = '0';
 
-                    projectDescriptionContainer.replaceChildren();
-                    projectTodolistContainer.replaceChildren();
+                    
+                    setTimeout(()=>{
+                            projectDescriptionContainer.replaceChildren();
+                            projectTodolistContainer.replaceChildren();
+                    },300);                    
                 }
+
             });
         
             expandBtn.appendChild(expandIcon);
@@ -279,6 +298,12 @@ export const projectDOM = (function(){
             projectOpen.appendChild(projectOpenIcon);
             return projectOpen;
         };
+
+        function adjustCardHeight(currentHeight){
+            projectBody.style.height = `${currentHeight}`;
+            const height = projectBody.scrollHeight;
+            projectBody.style.height = height + 'px';
+        }
 
         contentBody.appendChild(projectCard);
         

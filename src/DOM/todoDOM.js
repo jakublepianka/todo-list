@@ -101,9 +101,10 @@ export const todoDOM = (function(){
 
             todoPropertiesContainer.classList.add('todo-properties-container');
             propertiesList.classList.add('properties-list');
-            
+
             todoBody.className = '';
             todoBody.classList.add('todo-body-show');
+
 
             function loadProperties() {
                 
@@ -194,6 +195,7 @@ export const todoDOM = (function(){
                             event.target.parentNode.remove();                            
                             todo.editDescription(textArea.value);
                             loadDescription();
+                            todoBody.style.height = 'fit-content';
 
                         });
                         return submitBtn;
@@ -209,20 +211,23 @@ export const todoDOM = (function(){
 
                             event.target.parentNode.remove();
                             loadDescription();
+                            todoBody.style.height = 'fit-content';
 
                         });
 
                         return cancelBtn;
                     }
-                        
+
+
                     propertiesList.appendChild(descriptionFormItem);
                     descriptionFormItem.appendChild(textArea);
                     descriptionFormItem.appendChild(createSubmitButton());
                     descriptionFormItem.appendChild(createCancelButton());
-
+                
                     textArea.style.height = "auto";
                     textArea.style.height = textArea.scrollHeight + 16 + "px";
 
+                    todoBody.style.height = 'fit-content';
                 }
 
                 function loadDescription() {
@@ -272,7 +277,7 @@ export const todoDOM = (function(){
                             event.target.parentNode.remove();                            
                             todo.editNotes(textArea.value);
                             loadNotes();
-
+                            todoBody.style.height = 'fit-content';
                         });
                         return submitBtn;
                     }
@@ -287,6 +292,7 @@ export const todoDOM = (function(){
 
                             event.target.parentNode.remove();
                             loadNotes();
+                            todoBody.style.height = 'fit-content';
 
                         });
 
@@ -300,7 +306,7 @@ export const todoDOM = (function(){
 
                     textArea.style.height = "auto";
                     textArea.style.height = textArea.scrollHeight + 16 + "px";
-
+                    todoBody.style.height = `fit-content`;
 
                 }
 
@@ -347,6 +353,7 @@ export const todoDOM = (function(){
                             parentElement.remove();                            
                             todo.editDueDate(dateInput.value);
                             loadDate();
+                            todoBody.style.height = 'fit-content';
 
                         });
 
@@ -370,6 +377,7 @@ export const todoDOM = (function(){
 
                             parentElement.remove();
                             loadDate();
+                            todoBody.style.height = 'fit-content';
 
                         });
 
@@ -382,6 +390,8 @@ export const todoDOM = (function(){
                     dateFormBox.appendChild(dateInput);
                     dateFormBox.appendChild(createSubmitButton());
                     dateFormBox.appendChild(createCancelButton());
+
+                    todoBody.style.height = 'fit-content';
 
                 }
 
@@ -503,6 +513,8 @@ export const todoDOM = (function(){
                             return;
                         }
                         checklistContainer.appendChild(createCheckboxForm());
+                        todoBody.style.height = 'fit-content';
+
                     });
 
                     return addCheckBoxBtn;
@@ -649,6 +661,8 @@ export const todoDOM = (function(){
                         return cancelBtn;
                     }
 
+                    adjustCardHeight(todoBody.scrollHeight);
+
                     checkboxFormContainerWrapper.appendChild(checkboxFormContainer);
                     checkboxFormContainer.appendChild(formTextInput);
                     checkboxFormContainer.appendChild(createSubmitButton());
@@ -679,6 +693,7 @@ export const todoDOM = (function(){
 
             expandIcon.src = arrowImage;
             expandIcon.style.transform = "rotate(-180deg) translateY(-2px)";
+            todoBody.style.opacity = '0';
 
             let isClicked = false;
     
@@ -688,14 +703,28 @@ export const todoDOM = (function(){
                     
                     expandCard();
                     expandIcon.style.transform = 'translateY(1px)';
+                    todoBody.style.height = '0';
+                    const height = todoBody.scrollHeight;
+                    todoBody.style.height = height + 'px';
+                    todoBody.style.opacity = '1';
+
 
                 } else {
 
-                    todoBody.className = '';
-                    todoBody.classList.add('todo-body');
-                    todoBody.replaceChildren();
-                    expandIcon.style.transform = "rotate(-180deg) translateY(-3px)";
+                    todoBody.style.opacity = '0';
 
+                    setTimeout(()=>{
+                        todoBody.style.height = todoBody.scrollHeight + 'px';        
+                        todoBody.style.height = '0';
+                        expandIcon.style.transform = "rotate(-180deg) translateY(-3px)";
+                        
+                        setTimeout(()=>{
+                        todoBody.classList.remove('todo-body-show');
+                        todoBody.classList.add('todo-body');
+                        todoBody.replaceChildren();
+                        },200); 
+                    },200);
+                
                 }
             });
         
@@ -718,7 +747,6 @@ export const todoDOM = (function(){
                     todoBody.id = 'completed'
                     todoTitle.id = '';
                     todoTitle.id = 'completed'
-                    todoCard.style = 'order: 998';
             }
 
             todo.isCompleted ? changeToCompleted() 
@@ -753,6 +781,12 @@ export const todoDOM = (function(){
             return completionStateBtn;
 
         };
+
+        function adjustCardHeight(currentHeight){
+            todoBody.style.height = `${currentHeight}`;
+            const height = todoBody.scrollHeight;
+            todoBody.style.height = height + 'px';
+        }
 
 
         contentBody.appendChild(todoCard);

@@ -65,6 +65,8 @@
     height: fit-content;
     border-radius: 1rem;
     margin: 0.5rem 0;
+
+    overflow: hidden; 
 }
 
 .todo-header {
@@ -156,8 +158,16 @@
     width: 18px;
 }
 
+.todo-body {
+    height: 0px;
+    overflow: hidden;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 
 .todo-body-show {
+    height: fit-content;
     padding: 0.8rem 0 0.5rem;
     padding-left: calc(1rem + 0.5cqw);
     padding-right: calc(1rem + 0.5cqw);
@@ -165,16 +175,10 @@
         inset 0 10px 15px -15px rgb(0, 0, 0, 0.4);
 
     transition: 
-        color 0.2s ease-out,
-        background-color 0.2s ease-out;
-}
-
-.todo-body-show#completed * {
-    color: rgb(0, 0, 0, 0.4);
-
-    transition: 
-        color 0.2s ease-in,
-        background-color 0.2s ease-in;
+        height 0.2s ease-in-out,
+        opacity 0.4s ease-in-out,
+        padding-top 0.2s ease-in-out,
+        padding-bottom 0.2s ease-in-out;
 }
 
 .todo-body-show#completed .todo-date-priority-item {
@@ -485,8 +489,24 @@
     border-radius: 0.5rem 0.5rem 0 0;
 }
 
+
+.notes-submit-button {
+    border-radius: 0 0 0 0.5rem;
+    background-color: #d4e6ff;
+}
+
+.notes-cancel-button {
+    border-radius: 0 0 0.5rem 0;
+    background-color: #d4e6ff;
+}
+
+.notes-form-item > button:hover {
+    background-color: #9EC7FF;
+
+}
+
 .description-form > button {
-    background-color: #d4e6ff;  
+    background-color: #d4e6ff;
 
 }
 
@@ -500,7 +520,6 @@
 
 .description-form > button:hover {
     background-color: #9EC7FF;
-    cursor: pointer;
 }
 
 /* 
@@ -689,6 +708,10 @@
 
 }
 
+.todo-expand-icon {
+    transition: transform 0.2s ease;
+}
+
 /* 
     todo card (todo footer) v
     ============================================================
@@ -705,7 +728,7 @@
     width: 90%;
     min-height: 60px;
     height: 60px;
-    margin: 0.5rem 0;
+    margin: 0;
 
 
     border-radius: 1rem;

@@ -14,6 +14,11 @@ import "./css/todos.css"
     const headerText = document.querySelector('.header-text');
     headerText.textContent = 'TODO LIST';
 
+    if(storage.getProjectsList().length === 0) {   
+        const defaultProject = projectModel.createDefaultProject();
+        storage.setProjectIntoStorage(defaultProject);
+    }
+    
     projectDOM.loadEverything();
 
     (function fillProjectsList(){

@@ -1,5 +1,7 @@
 # Todo List Application
 
+[Preview](https://jakublepianka.github.io/todo-list/)
+
 A JavaScript-based todo list application that allows users to manage projects and their associated tasks. Built with vanilla JavaScript using modular architecture and event-driven patterns.
 
 ## Features in Detail

@@ -5,7 +5,12 @@
 
 @font-face {
     font-family: "Modern Sans";
-    src: url('../assets/fonts/ModernSans-Light.otf');
+    src: url("https://db.onlinewebfonts.com/t/0947f09c1de92d8a1a39b1db71f81c07.eot");
+    src: url("https://db.onlinewebfonts.com/t/0947f09c1de92d8a1a39b1db71f81c07.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/0947f09c1de92d8a1a39b1db71f81c07.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/0947f09c1de92d8a1a39b1db71f81c07.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/0947f09c1de92d8a1a39b1db71f81c07.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/0947f09c1de92d8a1a39b1db71f81c07.svg#Modern Sans Light")format("svg");
 }
 
 .leave-button {
